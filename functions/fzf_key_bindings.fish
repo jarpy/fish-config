@@ -1,0 +1,1 @@
+/home/jarpy/.fzf/shell/key-bindings.fish
