@@ -11,6 +11,8 @@ set -x __fish_git_prompt_show_informative_status true
 
 set -x fish_color_valid_path
 
+set -x VIRTUAL_ENV_DISABLE_PROMPT true
+
 eval (direnv hook fish)
 
 alias vi=vim
