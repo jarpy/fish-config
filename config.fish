@@ -16,6 +16,7 @@ set -x VIRTUAL_ENV_DISABLE_PROMPT true
 eval (direnv hook fish)
 
 alias vi=vim
+alias e='emacsclient --no-wait'
 
 ps -eo comm,user | egrep -q '^ssh-agent.+jarpy$'; or ssh-agent
 ln -sf (find /tmp/ssh-* -user $USER -name 'agent.*' 2>/dev/null) $HOME/.ssh/ssh_auth_sock
