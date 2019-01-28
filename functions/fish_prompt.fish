@@ -25,11 +25,21 @@ function fish_prompt --description 'Write out the prompt'
 
     __fish_git_prompt
 
+    # Virtualenv
+    if [ -n "$VIRTUAL_ENV" ]
+      set_color green
+      echo -n " 🐍"
+      echo -n (basename (dirname $VIRTUAL_ENV))
+      set_color $base2
+    end
+
     # Kubectl
-    set_color blue
-    echo -n " " 
-    echo -n (kubectl config current-context)
-    set_color $base2
+    if command -s kubectl > /dev/null
+      set_color blue
+      echo -n " ☸️ "
+      echo -n (kubectl config current-context | cut -c 1-16)
+      set_color $base2
+    end
 
     echo
 
