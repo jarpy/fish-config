@@ -19,6 +19,8 @@ alias vi=vim
 alias e='emacsclient --no-wait'
 set -x EDITOR 'emacsclient'
 
+alias k='kubectl'
+
 ps -eo comm,user | egrep -q '^ssh-agent.+jarpy$'; or ssh-agent
 ln -sf (find /tmp/ssh-* -user $USER -name 'agent.*' 2>/dev/null) $HOME/.ssh/ssh_auth_sock
 set -x SSH_AUTH_SOCK $HOME/.ssh/ssh_auth_sock
@@ -28,5 +30,7 @@ set -x SSH_AUTH_SOCK $HOME/.ssh/ssh_auth_sock
 function fish_title; end
 
 if test "$XDG_VTNR" = "1" -a "$TERM" = "linux"
+  set --erase TERM
+  pulseaudio &
   exec startx
 end
