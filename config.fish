@@ -13,6 +13,10 @@ set -x fish_color_valid_path
 
 set -x VIRTUAL_ENV_DISABLE_PROMPT true
 
+if test -n "$TMUX"
+    set -x FZF_TMUX 1
+end
+
 eval (direnv hook fish)
 
 alias vi=vim
