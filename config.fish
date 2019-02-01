@@ -34,7 +34,6 @@ set -x SSH_AUTH_SOCK $HOME/.ssh/ssh_auth_sock
 function fish_title; end
 
 if test "$XDG_VTNR" = "1" -a "$TERM" = "linux"
-  set --erase TERM
-  pulseaudio &
-  exec startx
+    set --erase TERM
+    exec startx
 end
