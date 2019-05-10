@@ -1,6 +1,12 @@
 function fish_prompt --description 'Write out the prompt'
     set -l last_status $status
 
+    if [ $TERM = eterm-color ]
+      echo -n (prompt_pwd)
+      echo '$ '
+      return
+    end
+
     echo
 
     # User
