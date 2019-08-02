@@ -34,7 +34,9 @@ set -x EDITOR 'emacsclient'
 
 alias k='kubectl'
 alias kgp='kubectl get pods'
-alias kdp='kubectl delete pod'
+alias kdp='kubectl describe pod'
+alias kdelp='kubectl delete pod'
+alias ktail='kubectl logs --tail=10 --follow'
 
 ps -eo comm,user | egrep -q '^ssh-agent.+jarpy$'; or ssh-agent
 ln -sf (find /tmp/ssh-* -user $USER -name 'agent.*' 2>/dev/null) $HOME/.ssh/ssh_auth_sock
