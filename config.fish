@@ -46,8 +46,17 @@ set -x SSH_AUTH_SOCK $HOME/.ssh/ssh_auth_sock
 # REF: https://github.com/fish-shell/fish-shell/issues/1907
 function fish_title; end
 
+# VSCode
+if test "$TERM_PROGRAM" = "vscode"
+    set --export LANG "en_AU.UTF-8"
+    set --export EDITOR "code --wait"
+end
+
+# X11 entrypoint
 if test "$XDG_VTNR" = "1" -a "$TERM" = "linux"
     set --erase TERM
     exec startx
 end
+
 rvm default
+source ~/src/elastic/infra/ve/bin/activate.fish
