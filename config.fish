@@ -22,6 +22,11 @@ set -x fish_color_valid_path
 
 set -x VIRTUAL_ENV_DISABLE_PROMPT true
 
+set -x FZF_DEFAULT_COMMAND 'fd --type file'
+set -x FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
+set -x FZF_ALT_C_COMMAND "fd --type d"
+
+
 if test -n "$TMUX"
     set -x FZF_TMUX 1
 end
@@ -30,7 +35,10 @@ eval (direnv hook fish)
 
 alias vi=vim
 alias e='emacsclient --no-wait'
+alias et='emacsclient --tty'
+
 set -x EDITOR 'emacsclient'
+#set -x EDITOR 'code'
 
 alias k='kubectl'
 alias kgp='kubectl get pods'
@@ -59,4 +67,4 @@ if test "$XDG_VTNR" = "1" -a "$TERM" = "linux"
 end
 
 rvm default
-source ~/src/elastic/infra/ve/bin/activate.fish
+source ~/src/elastic/infra/ve3/bin/activate.fish
