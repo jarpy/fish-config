@@ -43,9 +43,11 @@ function fish_prompt --description 'Write out the prompt'
     if command -s kubectl > /dev/null
         echo -n " ☸️ "
       set_color blue
+      # Cluster
+      echo -n (kubectl config current-context | sed 's/.*_//')
+      echo -n "/"
+      # Namespace
       echo -n (kubectl config get-contexts | awk '/^*/ {print $5}')
-      #echo -n "_"
-      #echo -n (kubectl config current-context | cut -c 1-16)
       set_color $base2
     end
 
