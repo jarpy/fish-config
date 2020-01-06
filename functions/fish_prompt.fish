@@ -39,9 +39,23 @@ function fish_prompt --description 'Write out the prompt'
       set_color $base2
     end
 
+    # Llama Release
+    if [ -n "$RELEASE_NAME" ]
+      echo -n " 🦙"
+      if [ "$RELEASE_NAME" = "llama-prod" ]
+        echo -n "🛑"
+        set_color f51
+      else
+        set_color ecb
+      end
+
+      echo -n (echo $RELEASE_NAME | string replace "llama-" "")
+      set_color $base2
+    end
+
     # Kubectl
     if command -s kubectl > /dev/null
-        echo -n " ☸️ "
+      echo -n " ☸️ "
       set_color blue
       # Cluster
       echo -n (kubectl config current-context | sed 's/.*_//')
