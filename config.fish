@@ -62,6 +62,8 @@ end
 
 # X11 entrypoint
 if test "$XDG_VTNR" = "1" -a "$TERM" = "linux"
+    set --erase VAULT_TOKEN
+    set --erase RELEASE_NAME
     set --erase TERM
     exec startx
 end
