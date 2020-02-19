@@ -40,28 +40,37 @@ function fish_prompt --description 'Write out the prompt'
     end
 
     # Llama Release
-    if [ -n "$RELEASE_NAME" ]
+    if [ -n "$LLAMA_RELEASE" ]
       echo -n " 🦙"
-      if [ "$RELEASE_NAME" = "llama-prod" ]
-        echo -n "🛑"
-        set_color f51
+      if [ "$LLAMA_RELEASE" = "llama-prod" ]
+          echo -n "🛑"
+          set_color f51
       else
-        set_color ecb
+          set_color ecb
       end
 
-      echo -n (echo $RELEASE_NAME | string replace "llama-" "")
+      echo -n (echo $LLAMA_RELEASE | string replace "llama-" "")
       set_color $base2
     end
 
     # Kubectl
     if command -s kubectl > /dev/null
       echo -n " ☸️ "
-      set_color blue
+      set cluster (kubectl config current-context | sed 's/.*_//')
+      set namespace (kubectl config get-contexts | awk '/^*/ {print $5}')
+
+      if string match --quiet --regex '(jarpy|test|stag)$' "$cluster"
+          set_color blue
+      else
+          echo -n "🛑"
+          set_color f51
+      end
+
       # Cluster
-      echo -n (kubectl config current-context | sed 's/.*_//')
+      echo -n $cluster
       echo -n "/"
       # Namespace
-      echo -n (kubectl config get-contexts | awk '/^*/ {print $5}')
+      echo -n $namespace
       set_color $base2
     end
 

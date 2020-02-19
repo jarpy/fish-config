@@ -33,6 +33,8 @@ end
 
 eval (direnv hook fish)
 
+alias ll='exa -l'
+
 alias vi=vim
 alias e='emacsclient --no-wait'
 alias et='emacsclient --tty'
