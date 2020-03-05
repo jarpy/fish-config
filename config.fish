@@ -22,13 +22,17 @@ set -x fish_color_valid_path
 
 set -x VIRTUAL_ENV_DISABLE_PROMPT true
 
-set -x FZF_DEFAULT_COMMAND 'fd --type file'
-set -x FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
-set -x FZF_ALT_C_COMMAND "fd --type d"
+set -x FZF_DEFAULT_COMMAND "fd --type file"
+set -x FZF_ALT_C_COMMAND "fd --hidden --type d . $HOME"
+set -x FZF_ALT_C_OPTS "--preview='exa --all --long --color=always {}'"
 
+set -x FZF_CTRL_T_COMMAND "fd --hidden --type f . $HOME"
+set -x FZF_CTRL_T_OPTS "--preview='bat --color=always {}'"
+
+set -x FZF_TMUX_HEIGHT 90%
 
 if test -n "$TMUX"
-    set -x FZF_TMUX 1
+  set -x FZF_TMUX 1
 end
 
 eval (direnv hook fish)
@@ -42,7 +46,12 @@ alias et='emacsclient --tty'
 set -x EDITOR 'emacsclient'
 #set -x EDITOR 'code'
 
+function cdf
+  cd (fzf-dir $argv[1])
+end
+
 alias k='kubectl'
+alias kga='kubectl get all'
 alias kgp='kubectl get pods'
 alias kdp='kubectl describe pod'
 alias kdelp='kubectl delete pod'
@@ -58,16 +67,16 @@ function fish_title; end
 
 # VSCode
 if test "$TERM_PROGRAM" = "vscode"
-    set --export LANG "en_AU.UTF-8"
-    set --export EDITOR "code --wait"
+  set --export LANG "en_AU.UTF-8"
+  set --export EDITOR "code --wait"
 end
 
 # X11 entrypoint
 if test "$XDG_VTNR" = "1" -a "$TERM" = "linux"
-    set --erase VAULT_TOKEN
-    set --erase RELEASE_NAME
-    set --erase TERM
-    exec startx
+  set --erase VAULT_TOKEN
+  set --erase RELEASE_NAME
+  set --erase TERM
+  exec startx
 end
 
 rvm default
